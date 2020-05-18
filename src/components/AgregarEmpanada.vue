@@ -46,7 +46,9 @@ export default {
     data() {
         return {
             ref: firebase.firestore().collection('empanadas'),
-            empanada: {}
+            empanada: {
+                estado: 'alta'
+            }
         }
     },
     methods: {
