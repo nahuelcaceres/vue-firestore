@@ -5,9 +5,12 @@
             Empanadas Listado
             <b-link href="#/agregar-empanada">(Agregar Empanada)</b-link>
         </h2>
-        <b-table striped hover :items="empanadas" :fields="fields">
+        <b-table striped hover :items="empanadas" :fields="fields" caption-top>
+            <template v-slot:table-caption>This is a table caption at the top.</template>
             <template v-slot:cell(actions)="data">
-                <b-button @click.stop="details(data.item)" variant="primary">Detalle</b-button>
+                <b-button @click.stop="editar(data.item)" variant="primary">Editar</b-button>
+                <b-button @click.stop="supenderActivar(data.item)">Inactivar</b-button>
+                <b-button @click.stop="borrar(data.item)" variant="danger">Borrar</b-button>
             </template>
         </b-table>
     </b-col>
@@ -25,7 +28,7 @@ export default {
             fields: [
                 { key: 'codigo', label: 'Codigo', sortable: true, 'class': 'text-left'},
                 { key: 'descripcion', label: 'Descripcion', sortable: true, 'class': 'text-left'},
-                { key: 'actions', label: 'Action', 'class': 'text-center'},
+                { key: 'actions', label: 'Acciones', 'class': 'text-center'},
             ],
             empanadas: [],
             errors: [],
@@ -47,8 +50,23 @@ export default {
         });
     },
     methods: {
-        details(empanada){
+        editar(empanada){
             router.push({name: 'MostrarEmpanada', params: {id: empanada.key}})
+        },
+        supenderActivar(empanada){
+            alert("toggle supender/activar" + empanada);
+        },
+        borrar(empanada){
+            
+            if (confirm(`Esta seguro de borrar ${empanada.codigo} - ${empanada.descripcion}`)){
+                
+                firebase.firestore().collection('empanadas').doc(empanada.key).delete().then(function(){
+                    
+                }).catch(function(error){
+                    alert("No se pudo borrar!!! " + error);
+                });
+            }
+            
         }
     }
 }
