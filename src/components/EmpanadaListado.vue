@@ -1,4 +1,5 @@
 <template>
+   <b-container fluid>
    <b-row>
     <b-col cols="12">
         <a href="#" @click="logout">SALIR</a>
@@ -16,6 +17,7 @@
         </b-table>
     </b-col>
   </b-row>
+  </b-container>
 </template>
 
 <script>

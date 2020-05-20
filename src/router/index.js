@@ -55,7 +55,10 @@ const router = new VueRouter({
         {
             path: '/agregar-empanada',
             name: 'AgregarEmpanada',
-            component: AgregarEmpanada
+            component: AgregarEmpanada,
+            meta:{
+                autentificado: true //Para poder acceder ..tienes que estar autenficado.
+            }
         }
     ]
 })
@@ -68,17 +71,19 @@ router.beforeEach((to, from, next) => {
     //console.log(usuario);
     
     //Es una ruta que requiere estar autentificado
-    let autorizacion = to.matched.some(record => record.meta.autentificado);
+    let requiereAutorizacion = to.matched.some(record => record.meta.autentificado);
 
-    if (autorizacion && !usuario){
-        next('login');
-    
-    } else if (!autorizacion && usuario) {
-        next('empanada-listado');
+    if (requiereAutorizacion){
+        if (usuario){
+            next();
+        } else {
+            next('login');
+        }
     
     } else {
         next();
     }
+
 })
 
 export default router;
