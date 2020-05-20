@@ -1,6 +1,7 @@
 <template>
    <b-row>
     <b-col cols="12">
+        <a href="#" @click="logout">SALIR</a>
         <h2>
             Empanadas Listado
             <b-link href="#/agregar-empanada">(Agregar Empanada)</b-link>
@@ -67,6 +68,11 @@ export default {
                 });
             }
             
+        },
+        logout(){
+            
+            firebase.auth().signOut().then(() => this.$router.replace('login'));
+
         }
     }
 }

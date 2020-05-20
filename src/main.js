@@ -10,7 +10,14 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 
-new Vue({
-  router,
-  render: h => h(App),
-}).$mount('#app')
+import firebase from './Firebase'
+
+firebase.auth().onAuthStateChanged(function(){
+  
+  new Vue({
+    router,
+    render: h => h(App),
+  }).$mount('#app')
+
+})
+
