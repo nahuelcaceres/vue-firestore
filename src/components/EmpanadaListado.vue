@@ -22,7 +22,7 @@
 
 <script>
 import firebase from '../Firebase'
-import router from '../router'
+//import router from '../router'
 
 export default {
     name: 'EmpanadaListado',
@@ -54,7 +54,10 @@ export default {
     },
     methods: {
         editar(empanada){
-            router.push({name: 'MostrarEmpanada', params: {id: empanada.key}})
+            //router.push({name: 'MostrarEmpanada', params: {id: empanada.key}})
+            console.log(empanada);
+            window.open(`https://api.whatsapp.com/send?phone=541165645467&text='hola viejo'`,
+                            "_blank");
         },
         supenderActivar(empanada){
             alert("toggle supender/activar" + empanada);
